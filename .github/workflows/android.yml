@@ -20,7 +20,11 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    # gradlew ফাইল না থাকলেও এই অ্যাকশনটি নিজে থেকে নির্দিষ্ট ভার্সনের Gradle সেটআপ করে দেবে
+    # গিটহাবে অনুপস্থিত debug.keystore ফাইলটি .base64 ফাইল থেকে ডিকোড করে তৈরি করা
+    - name: Recreate debug.keystore
+      run: base64 --decode debug.keystore.base64 > debug.keystore
+
+    # সঠিক Gradle সেটআপ করা
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@v3
       with:
@@ -29,9 +33,9 @@ jobs:
     - name: Build Debug APK
       run: gradle assembleDebug
 
-    # সঠিক পাথ থেকে ওয়াইল্ডকার্ড (*.apk) ব্যবহার করে APK খুঁজে আপলোড করা
+    # সঠিক সাব-মডিউল পাথ (app/) থেকে APK খুঁজে আপলোড করা
     - name: Upload APK Artifact
       uses: actions/upload-artifact@v4
       with:
         name: BrainTrainerAPK
-        path: build/outputs/apk/debug/*.apk
+        path: app/build/outputs/apk/debug/*.apk
