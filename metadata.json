@@ -1,0 +1,6 @@
+{
+  "name": "Brain Trainer",
+  "description": "An elegant, premium-designed collection of brain training mini games targeting memory, logic, math, and reaction speed.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
